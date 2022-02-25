@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+
+  gateway-api:
+    build:
+      dockerfile: ./ms-gateway/Dockerfile
+      context: .
+    image: ms-gateway/api
+    environment:
+      - PRODUCT_API=http://product-api:4000
+    ports:
+      - 9999:9999
+  product-api:
+    build:
+      dockerfile: ./ms-product/Dockerfile
+      context: .
+    image: ms-product/api
+    ports:
+      - 4000:4000

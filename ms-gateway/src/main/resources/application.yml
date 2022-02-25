@@ -1,0 +1,44 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: MS-GATEWAY
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enable: true
+          lower-case-service-id: true
+      routes:
+        - id: after_route
+          uri: ${PRODUCT_API:http://localhost:4000}
+          predicates:
+            - Path=/products/**
+        - id: alura
+          uri: https://alura.com.br
+          predicates:
+            - Path=/alura/**
+        - id: sales
+          uri: https://sales-felipe-gadelha.herokuapp.com
+          predicates:
+            - Path=/api/sales/v1/**
+            
+management:
+  endpoint:
+    health:
+      status:
+        http-mapping:
+          down: 500
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
