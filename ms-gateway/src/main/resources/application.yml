@@ -10,7 +10,7 @@ spring:
           enable: true
           lower-case-service-id: true
       routes:
-        - id: after_route
+        - id: PRODUCT_API
           uri: ${PRODUCT_API:http://localhost:4000}
           predicates:
             - Path=/products/**

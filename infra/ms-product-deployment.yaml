@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-product-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-product
+  template:
+    metadata:
+      labels:
+        app: ms-product
+    spec:
+      containers:
+        - name: ms-product
+          image: lukinhasssss/ms-product
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-product-clusterip-service
+spec:
+  selector:
+    app: ms-product
+  ports:
+    - name: ms-product
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
